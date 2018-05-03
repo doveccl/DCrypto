@@ -347,7 +347,6 @@ namespace DCrypto {
 
 		int unit_len = len / 2 / map_len;
 		int half_map[128];
-		int cnt_map = 0;
 
 		for (int i = 0; i< map_len; i++)
 			half_map[enc_map[i]] = i;

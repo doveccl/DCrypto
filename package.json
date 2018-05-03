@@ -1,0 +1,22 @@
+{
+  "name": "dcrypto",
+  "version": "1.0.0",
+  "description": "String cryption",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/doveccl/DCrypto.git"
+  },
+  "keywords": [
+    "crypto"
+  ],
+  "author": "Doveccl <doveccl@live.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/doveccl/DCrypto/issues"
+  },
+  "homepage": "https://github.com/doveccl/DCrypto#readme"
+}
