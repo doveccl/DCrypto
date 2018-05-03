@@ -33,7 +33,5 @@ console.log('decrypted:', decrypted);
 
 ## Use in other language
 
-- C/C++
-    Include header file: https://github.com/doveccl/DCrypto/blob/master/lib/dcrypto.h
-- PHP
-    Require file: https://github.com/doveccl/DCrypto/blob/master/php/dcrypto.php
+- C/C++: include header file https://github.com/doveccl/DCrypto/blob/master/lib/dcrypto.h
+- PHP: require file https://github.com/doveccl/DCrypto/blob/master/php/dcrypto.php

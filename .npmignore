@@ -1,1 +1,6 @@
 php/
+build/
+.vscode/
+
+test.js
+test.cc
