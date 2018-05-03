@@ -1,8 +1,8 @@
 {
-  "targets": [
+  'targets': [
     {
-      "target_name": "dcrypto",
-      "sources": [ "dcrypto.cc" ]
+      'target_name': 'dcrypto',
+      'sources': [ 'dcrypto.cc' ]
     }
   ]
 }

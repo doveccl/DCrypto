@@ -286,7 +286,7 @@ namespace DCrypto {
 			uchar = temp; \
 		}while(0)
 
-	void dec_map_recovery(UINT8 *s, int len, int map_len, int seed)
+	bool dec_map_recovery(UINT8 *s, int len, int map_len, int seed)
 	{
 		#ifdef __dc_debug
 			puts("\n----- Debug map recovery -----");
@@ -325,6 +325,12 @@ namespace DCrypto {
 				else if (enc_swa & seed)
 					__dec_swap(s[i], enc_bin);		
 
+				if (s[i] < 33 || s[i] > 126)
+					return false;
+				for (int j = 0; j < cnt_map; j++)
+					if (s[i] == enc_map[j])
+						return false;
+
 				enc_map[cnt_map++] = s[i];
 
 				#ifdef __dc_debug
@@ -335,6 +341,8 @@ namespace DCrypto {
 		#ifdef __dc_debug
 			puts("\n----- Debug map recovery -----\n");
 		#endif
+
+		return true;
 	}
 
 	void dec_unmapping(UINT8 *s, int len, int map_len)
@@ -448,6 +456,8 @@ namespace DCrypto {
 
 	char *dc_encrypt(const char *src_code, UINT8 enc_seed)
 	{
+		if (enc_seed < 0 || enc_seed > 255) return NULL;
+
 		int src_len = strlen(src_code);
 		int src_max_extend_len = src_len + 2 * MAX_EXTEND;
 
@@ -491,12 +501,18 @@ namespace DCrypto {
 
 	char *dc_decrypt(const char *enc_code, UINT8 enc_seed)
 	{
+		if (enc_seed < 0 || enc_seed > 255) return NULL;
+
 		int map_len = dec_get_map_len(enc_seed);
 		int len = strlen(enc_code);
 		UINT8 *enc = new UINT8[len];
 		memcpy(enc, enc_code, len * sizeof(char));
 
-		dec_map_recovery(enc, len, map_len, enc_seed);
+		if (len == 0 || len % map_len != 0) return NULL;
+
+		if (!dec_map_recovery(enc, len, map_len, enc_seed))
+			return NULL; // invalid enc_code
+
 		dec_unmapping(enc, len, map_len);
 
 		len /= 2;

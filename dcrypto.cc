@@ -36,8 +36,14 @@ void Enc(const FunctionCallbackInfo<Value>& args) {
   const int seed = args[1]->IntegerValue();
 
   const char *rstr = DCrypto::dc_encrypt(str, seed);
-  Local<String> res = String::NewFromUtf8(isolate, rstr);
-  args.GetReturnValue().Set(res);
+  if (rstr == NULL) {
+    isolate->ThrowException(Exception::Error(
+      String::NewFromUtf8(isolate, "Encrypt error")
+    ));
+  } else {
+    Local<String> res = String::NewFromUtf8(isolate, rstr);
+    args.GetReturnValue().Set(res);
+  }
 }
 
 void Dec(const FunctionCallbackInfo<Value>& args) {
@@ -73,8 +79,14 @@ void Dec(const FunctionCallbackInfo<Value>& args) {
   const int seed = args[1]->IntegerValue();
 
   const char *rstr = DCrypto::dc_decrypt(str, seed);
-  Local<String> res = String::NewFromUtf8(isolate, rstr);
-  args.GetReturnValue().Set(res);
+  if (rstr == NULL) {
+    isolate->ThrowException(Exception::Error(
+      String::NewFromUtf8(isolate, "Decrypt error")
+    ));
+  } else {
+    Local<String> res = String::NewFromUtf8(isolate, rstr);
+    args.GetReturnValue().Set(res);
+  }
 }
 
 void Init(Handle<Object> exports) {

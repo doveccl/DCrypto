@@ -1,7 +1,7 @@
 {
   "name": "dcrypto",
-  "version": "1.0.0",
-  "description": "String cryption",
+  "version": "1.0.1",
+  "description": "Simple string crypto library",
   "main": "index.js",
   "scripts": {
     "test": "node test.js"
@@ -11,7 +11,9 @@
     "url": "https://github.com/doveccl/DCrypto.git"
   },
   "keywords": [
-    "crypto"
+    "crypto",
+    "string",
+    "node"
   ],
   "author": "Doveccl <doveccl@live.com>",
   "license": "MIT",
