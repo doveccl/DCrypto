@@ -1,3 +1,8 @@
+/**
+ * Doveccl Crypto
+ * Copyright 2014-2018 Doveccl
+ */
+
 #ifndef __Doveccl_Cryption_H__
 #define __Doveccl_Cryption_H__
 

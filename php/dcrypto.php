@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Doveccl Crypto
+ * Copyright 2014-2018 Doveccl
+ */
+
 static $enc_bin = array(1, 2, 4, 8, 16, 32, 64, 128);
 
 /*two base chars of mapping*/
