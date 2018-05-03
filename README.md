@@ -13,7 +13,7 @@ $ npm i dcrypto
 Use yarn:
 
 ```bash
-yarn add dcrypto
+$ yarn add dcrypto
 ```
 
 ## Usage
