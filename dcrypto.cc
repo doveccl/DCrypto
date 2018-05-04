@@ -40,7 +40,10 @@ void Enc(const FunctionCallbackInfo<Value>& args) {
       String::NewFromUtf8(isolate, "Encrypt error")
     ));
   } else {
-    MaybeLocal<String> res(String::NewFromOneByte(isolate, (const uint8_t *)rstr));
+    MaybeLocal<String> res(String::NewFromOneByte(
+      isolate, (const uint8_t *)rstr,
+      String::kNormalString, strlen(rstr)
+    ));
     args.GetReturnValue().Set(res.ToLocalChecked());
   }
 }
