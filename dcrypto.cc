@@ -42,7 +42,7 @@ void Enc(const FunctionCallbackInfo<Value>& args) {
   } else {
     MaybeLocal<String> res(String::NewFromOneByte(
       isolate, (const uint8_t *)rstr,
-      String::kNormalString, strlen(rstr)
+      NewStringType::kNormal, strlen(rstr)
     ));
     args.GetReturnValue().Set(res.ToLocalChecked());
   }
