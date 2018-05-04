@@ -331,7 +331,7 @@ namespace DCrypto {
 					__dec_swap(s[i], enc_bin);		
 
 				if (s[i] < 33 || s[i] > 126)
-					return false;
+				 	return false;
 				for (int j = 0; j < cnt_map; j++)
 					if (s[i] == enc_map[j])
 						return false;
@@ -459,11 +459,11 @@ namespace DCrypto {
 		s[src_len] = 0;
 	}
 
-	char *dc_encrypt(const char *src_code, UINT8 enc_seed)
+	char *dc_encrypt(const char *src_code, UINT8 enc_seed, int _len = -1)
 	{
 		if (enc_seed < 0 || enc_seed > 255) return NULL;
 
-		int src_len = strlen(src_code);
+		int src_len = _len == -1 ? strlen(src_code) : _len;
 		int src_max_extend_len = src_len + 2 * MAX_EXTEND;
 
 		UINT8 *src = new UINT8[src_max_extend_len];
@@ -504,12 +504,12 @@ namespace DCrypto {
 		return (char *) enc;
 	}
 
-	char *dc_decrypt(const char *enc_code, UINT8 enc_seed)
+	char *dc_decrypt(const char *enc_code, UINT8 enc_seed, int _len = -1)
 	{
 		if (enc_seed < 0 || enc_seed > 255) return NULL;
 
 		int map_len = dec_get_map_len(enc_seed);
-		int len = strlen(enc_code);
+		int len = _len == -1 ? strlen(enc_code) : _len;
 		UINT8 *enc = new UINT8[len];
 		memcpy(enc, enc_code, len * sizeof(char));
 

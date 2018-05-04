@@ -23,16 +23,15 @@ void Enc(const FunctionCallbackInfo<Value>& args) {
 
   if (args.Length() >= 3) {
     String::Utf8Value _ab(args[2]->ToString());
-    std::string enc_ab(*_ab);
-    DCrypto::enc_a = enc_ab[0];
-    DCrypto::enc_b = enc_ab[1];
+    DCrypto::enc_a = ((char *)*_ab)[0];
+    DCrypto::enc_b = ((char *)*_ab)[1];
   } else {
     DCrypto::enc_a = 'a';
     DCrypto::enc_b = 'b';
   }
 
   String::Utf8Value _str(args[0]->ToString());
-  const char *str = std::string(*_str).c_str();
+  const char *str = *_str;
   const int seed = args[1]->IntegerValue();
 
   const char *rstr = DCrypto::dc_encrypt(str, seed);
@@ -41,8 +40,8 @@ void Enc(const FunctionCallbackInfo<Value>& args) {
       String::NewFromUtf8(isolate, "Encrypt error")
     ));
   } else {
-    Local<String> res = String::NewFromUtf8(isolate, rstr);
-    args.GetReturnValue().Set(res);
+    MaybeLocal<String> res(String::NewFromOneByte(isolate, (const uint8_t *)rstr));
+    args.GetReturnValue().Set(res.ToLocalChecked());
   }
 }
 
@@ -66,16 +65,17 @@ void Dec(const FunctionCallbackInfo<Value>& args) {
 
   if (args.Length() >= 3) {
     String::Utf8Value _ab(args[2]->ToString());
-    std::string enc_ab(*_ab);
-    DCrypto::enc_a = enc_ab[0];
-    DCrypto::enc_b = enc_ab[1];
+    DCrypto::enc_a = ((char *)*_ab)[0];
+    DCrypto::enc_b = ((char *)*_ab)[1];
   } else {
     DCrypto::enc_a = 'a';
     DCrypto::enc_b = 'b';
   }
 
-  String::Utf8Value _str(args[0]->ToString());
-  const char *str = std::string(*_str).c_str();
+  Local<String> s(args[0]->ToString());
+  char str[2 * s->Length()];
+  s->WriteOneByte((uint8_t *)str);
+
   const int seed = args[1]->IntegerValue();
 
   const char *rstr = DCrypto::dc_decrypt(str, seed);

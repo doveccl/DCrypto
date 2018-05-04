@@ -1,12 +1,20 @@
+const $ = require('assert')
 const _ = require('./index')
 
-let seed = 0
-let enc_ab = 'ab'
-let str = 'Hello World'
+const chr = n => String.fromCharCode(n)
+const ord = c => c.charCodeAt(0)
 
-let enc = _.encrypt(str, seed, enc_ab)
-let dec = _.decrypt(enc, seed, enc_ab)
+const str = 'Hello DCrypto!'
 
-console.log('string:', str)
-console.log('encrypt:', enc)
-console.log('decrypt:', dec)
+for (let seed = 0; seed < 256; seed++) {
+    for (let a = ord('A'); a < ord('z'); a++)
+        for (let b = ord('A'); b < ord('z'); b++) {
+            let ab = chr(a) + chr(b)
+            let enc = _.encrypt(str, seed, ab)
+            let dec = _.decrypt(enc, seed, ab)
+            $.equal(str, dec, 'test fail')
+        }
+    process.stdout.write(`test success: ${seed}/255\r`)
+}
+
+console.log('test finished')
