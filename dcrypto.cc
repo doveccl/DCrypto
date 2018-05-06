@@ -76,7 +76,7 @@ void Dec(const FunctionCallbackInfo<Value>& args) {
   }
 
   Local<String> s(args[0]->ToString());
-  char str[2 * s->Length()];
+  char *str = new char[2 * s->Length()];
   s->WriteOneByte((uint8_t *)str);
 
   const int seed = args[1]->IntegerValue();
