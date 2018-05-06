@@ -6,6 +6,7 @@
 #ifndef __Doveccl_Cryption_H__
 #define __Doveccl_Cryption_H__
 
+#include <ctime>
 #include <cstdio>
 #include <random>
 #include <cstring>
