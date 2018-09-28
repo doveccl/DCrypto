@@ -1,6 +1,8 @@
-php/
-build/
+.DS_Store
 .vscode/
+build/
+php/
 
+.travis.yml
 test.js
 test.cc
